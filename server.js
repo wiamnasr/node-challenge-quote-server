@@ -22,6 +22,24 @@ app.get("/quotes/random", function (req, res) {
   res.send(JSON.stringify(pickFromArray(quotes)));
 });
 
+app.get("/quotes/search/:term", (req, res) => {
+  const found = quotes.some((quoteObj) =>
+    quoteObj["quote"].includes(req.params.term)
+  );
+
+  if (found) {
+    // used parseInt as req.params.id returns a string and I am using strict equality
+    res.json(
+      quotes.filter((quoteObj) => quoteObj["quote"].includes(req.params.term))
+    );
+  } else {
+    //   returning 400 bad request and a message when the user enters a non existing id
+    res
+      .status(400)
+      .json({ msg: `No quotes include your search term "${req.params.term}"` });
+  }
+});
+
 app.get("/quotes", function (request, response) {
   response.send(JSON.stringify(quotes));
 });
@@ -42,5 +60,5 @@ const PORT = process.env.PORT || 5000;
 
 //Start our server so that it listens for HTTP requests!
 const listener = app.listen(PORT, () =>
-  console.log(`Server started on port ${PORT} and some calc`)
+  console.log(`Server started on port ${PORT}`)
 );
