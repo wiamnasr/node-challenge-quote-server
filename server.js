@@ -18,6 +18,14 @@ app.get("/", function (request, response) {
 
 //START OF YOUR CODE...
 
+app.get("/quotes/random", function (req, res) {
+  res.send(JSON.stringify(pickFromArray(quotes)));
+});
+
+app.get("/quotes", function (request, response) {
+  response.send(JSON.stringify(quotes));
+});
+
 //...END OF YOUR CODE
 
 //You can use this function to pick one element at random from a given array
@@ -28,7 +36,11 @@ function pickFromArray(arr) {
   return arr[Math.floor(Math.random() * arr.length)];
 }
 
+// Setting to a port number, but adding process.env.PORT, when I deploy, the server will have the port number in an environment variable
+// this way we check first for a port variable, if there is no port variable in the environment then it will directly run on port 5000
+const PORT = process.env.PORT || 5000;
+
 //Start our server so that it listens for HTTP requests!
-const listener = app.listen(process.env.PORT, function () {
-  console.log("Your app is listening on port " + listener.address().port);
-});
+const listener = app.listen(PORT, () =>
+  console.log(`Server started on port ${PORT} and some calc`)
+);
