@@ -36,6 +36,6 @@ const getSearchTerm = (req, res) => {
 
 const getAllQuotes = (req, res) => {
   res.json({ success: true, quotes });
-};
+};// used parseInt as req.params.id returns a string and I am using strict equality
 
 module.exports = { getRandomQuote, getSearchTerm, getAllQuotes };

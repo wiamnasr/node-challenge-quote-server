@@ -8,6 +8,7 @@ const app = express();
 // routes
 const quotesRoutes = require("./routes/quotes");
 const homepageRouter = require("./routes/admin");
+const catchAllRoute = require("./routes/404");
 
 // Now register handlers for some routes:
 //   /                  - Return some helpful welcome info (text)
@@ -16,9 +17,16 @@ const homepageRouter = require("./routes/admin");
 
 //START OF YOUR CODE...
 
+
 app.use("/quotes", quotesRoutes);
 
+
+
+
 app.use("/", homepageRouter);
+
+app.use("/:catchAll", catchAllRoute);
+
 
 //...END OF YOUR CODE
 
