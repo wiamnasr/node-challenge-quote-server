@@ -17,16 +17,11 @@ const catchAllRoute = require("./routes/404");
 
 //START OF YOUR CODE...
 
-
 app.use("/quotes", quotesRoutes);
-
-
-
 
 app.use("/", homepageRouter);
 
 app.use("/:catchAll", catchAllRoute);
-
 
 //...END OF YOUR CODE
 
