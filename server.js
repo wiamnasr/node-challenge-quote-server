@@ -7,18 +7,18 @@ const app = express();
 
 // routes
 const quotesRoutes = require("./routes/quotes");
+const homepageRouter = require("./routes/admin");
 
 // Now register handlers for some routes:
 //   /                  - Return some helpful welcome info (text)
 //   /quotes            - Should return all quotes (json)
 //   /quotes/random     - Should return ONE quote (json)
-app.get("/", function (request, response) {
-  response.send("Wiam's Quote Server!  Ask me for /quotes/random, or /quotes");
-});
 
 //START OF YOUR CODE...
 
 app.use("/quotes", quotesRoutes);
+
+app.use("/", homepageRouter);
 
 //...END OF YOUR CODE
 

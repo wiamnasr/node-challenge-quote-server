@@ -10,7 +10,7 @@ function pickFromArray(arr) {
 }
 
 const getRandomQuote = (req, res) => {
-  res.status(200).send(JSON.stringify(pickFromArray(quotes)));
+  res.status(200).json({ success: true, randomQuote: pickFromArray(quotes) });
 };
 
 const getSearchTerm = (req, res) => {
@@ -18,21 +18,24 @@ const getSearchTerm = (req, res) => {
     quoteObj["quote"].includes(req.params.term)
   );
 
-  if (found) {
-    // used parseInt as req.params.id returns a string and I am using strict equality
-    res.json(
-      quotes.filter((quoteObj) => quoteObj["quote"].includes(req.params.term))
-    );
+  if (!found) {
+    //   returning 404 bad request and a message when the user enters a non existing id
+    res.status(404).json({
+      success: false,
+      msg: `No quotes include your search term "${req.params.term}"`,
+    });
   } else {
-    //   returning 400 bad request and a message when the user enters a non existing id
-    res
-      .status(400)
-      .json({ msg: `No quotes include your search term "${req.params.term}"` });
+    res.json({
+      success: true,
+      matchingQuotes: quotes.filter((quoteObj) =>
+        quoteObj["quote"].includes(req.params.term)
+      ),
+    });
   }
 };
 
 const getAllQuotes = (req, res) => {
-  response.send(JSON.stringify(quotes));
+  res.json({ success: true, quotes });
 };
 
 module.exports = { getRandomQuote, getSearchTerm, getAllQuotes };
