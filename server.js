@@ -5,6 +5,16 @@
 const express = require("express");
 const app = express();
 
+// cors
+const cors = require("cors");
+const corsOptions = {
+  origin: "*",
+  credentials: true, //access-control-allow-credentials:true
+  optionSuccessStatus: 200,
+};
+
+app.use(cors(corsOptions));
+
 // routes
 const quotesRoutes = require("./routes/quotes");
 const homepageRouter = require("./routes/admin");
@@ -21,7 +31,7 @@ app.use("/quotes", quotesRoutes);
 
 app.use("/", homepageRouter);
 
-app.use("/:catchAll", catchAllRoute);
+app.use("/*", catchAllRoute);
 
 //...END OF YOUR CODE
 

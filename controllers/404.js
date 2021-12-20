@@ -1,8 +1,8 @@
 const get404 = (req, res) => {
-  console.log(req.catchAll);
+  // console.log(req.catchAll);
   res.status(400).json({
     success: false,
-    msg: `>>>>  ${req.catchAll}  <<<< is not within my API s reach...`,
+    msg: ` not within my API s reach...`,
     methods: {
       home: "/",
       quotes: "/quotes",

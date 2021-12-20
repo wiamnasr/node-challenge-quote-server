@@ -3,6 +3,6 @@ const router = express.Router();
 
 const catchAll = require('../controllers/404')
 
-router.get("/:catchAll", catchAll);
+router.get("/*", catchAll);
 
 module.exports = router;
